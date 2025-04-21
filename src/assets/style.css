@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Special+Gothic+Expanded+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Special+Gothic+Expanded+One&display=swap');
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    font-size: 1.6rem;
+    background: #5e003a;
+    background: linear-gradient(135deg,rgba(94, 0, 58, 1) 0%, rgba(63, 63, 191, 1) 50%, rgba(0, 212, 255, 1) 100%);
+    min-height: 100vh;
+    text-align: center;
+    font-family: "Nunito Sans", sans-serif;
+}
+
+h1 {
+    font-family: "Special Gothic Expanded One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    text-align: center;
+    color: white;
+    font-size: clamp(2.8rem, 6vw, 4rem);
+    margin: 6vw;
+}
