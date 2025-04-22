@@ -40,4 +40,9 @@
     button:hover {
         background-color: rgb(197, 135, 255);
     }
+    @media (max-width: 767px) {
+        input, button {
+            width: 60vw;
+        }
+    }
 </style>

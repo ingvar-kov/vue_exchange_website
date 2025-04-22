@@ -2,15 +2,19 @@
     import { ref } from 'vue'
     import Input from './components/Input.vue'
     import Selector from './components/Selector.vue'
+    import CryptoConvert from 'crypto-convert';
 
-    const amount = ref(0)
+    const cryptoConverter = new CryptoConvert();
+
     const cryptoFirst = ref('')
     const cryptoSecond = ref('')
+    const amount = ref(0)
     const error = ref('')
+    const res = ref(null)
 
     const changeAmount = (value) => {
         amount.value = value
-        error.value = '' // Сбрасываем ошибку при изменении суммы
+        error.value = ''
     }
 
     const setCryptoFirst = (value) => {
@@ -19,17 +23,22 @@
 
     const setCryptoSecond = (value) => {
         cryptoSecond.value = value
-    } // <- Точка с запятой вместо запятой
+    }
 
-    const convert = () => { // Правильное объявление функции
-        if (amount.value <= 0) {
+    const convert = async () => {
+        if (cryptoFirst.value === cryptoSecond.value) {
+            error.value = 'Выберите валюту'
+            return
+        } else if (amount.value <= 0) {
             error.value = 'Укажите сумму'
             return
-        } else if(cryptoFirst.value == cryptoSecond.value) {
-            error.value = 'Выберите другую валюту'
-            return
         }
-        this.error = ''
+        
+        error.value = ''
+        
+        await cryptoConverter.ready()
+    
+        res.value = cryptoConverter[cryptoFirst.value][cryptoSecond.value](amount.value)
     }
 </script>
 
@@ -42,9 +51,10 @@
         <Selector :setCrypto="setCryptoFirst" :currentCrypto="cryptoFirst" />
         <Selector :setCrypto="setCryptoSecond" :currentCrypto="cryptoSecond" />
     </div>
-    <div>
+    <div className="course">
         {{ cryptoFirst }}  {{ cryptoSecond }}
     </div>
+    <p v-if="res !== null" className="res">{{ res }}</p>
 </template>
 
 <style scoped>
@@ -58,5 +68,28 @@
     .error {
         font-weight: bold;
         color: white;
+    }
+    .course {
+        font-weight: bold;
+        color: white;
+    }
+    .res {
+        display: block;
+        box-sizing: border-box;
+        outline: none;
+        margin: 0 auto;
+        border: none;
+        border-radius: 3px;
+        padding: 1rem 1.5rem;
+        font-size: 1.5rem;
+        width: 20vw;
+        font-weight: bold;
+        margin-bottom: 1.5rem;
+        background-color: #42b983;
+    }
+    @media (max-width: 767px) {
+        .selectors, .res {
+            width: 60vw;
+        }
     }
 </style>

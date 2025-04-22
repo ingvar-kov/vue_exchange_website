@@ -10,6 +10,7 @@ body {
     background: #5e003a;
     background: linear-gradient(135deg,rgba(94, 0, 58, 1) 0%, rgba(63, 63, 191, 1) 50%, rgba(0, 212, 255, 1) 100%);
     min-height: 100vh;
+    overflow-y: hidden;
     text-align: center;
     font-family: "Nunito Sans", sans-serif;
 }
@@ -22,4 +23,10 @@ h1 {
     color: white;
     font-size: clamp(2.8rem, 6vw, 4rem);
     margin: 6vw;
+}
+
+@media (max-height: 767px) {
+    body {
+        overflow-y: auto;
+    }
 }
